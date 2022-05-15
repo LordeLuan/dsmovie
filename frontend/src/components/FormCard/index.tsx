@@ -4,6 +4,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Movie } from 'types/movie';
 import { BASE_URL } from 'utils/requests';
 import { validateEmail } from 'utils/validate';
+import { ToastContainer, toast, Zoom, Bounce } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import './Styles.css'
 
 type Props = {
@@ -50,10 +52,33 @@ function FormCard( {movieId} : Props) {
 
       // Requisição de put
       axios(config).then(response => {
-        // Navega para a raiz
-        navigate("/");
+        // Mensagem confirmando ao usuario o envio da avaliação
+        toast("✔ Avaliação enviada!",{
+          position: "top-right",
+          draggable: true,
+          transition: Bounce,
+          autoClose: 3500,
+          closeOnClick: false,
+          pauseOnHover: false,
+          progress: undefined
+          });
+          // função que espera um determinado tempo para executar a função dentro dela
+        setTimeout(() => {  
+          
+          navigate("/");
+
+         }, 4200);
+      }).catch(err => {  //Caso der erro na requisição irá aparecer uma mensagem na tela informando
+        if(err){
+          toast("Erro ao enviar a avialiação",{
+            className: "error-toast",
+            draggable: true,
+            position: toast.POSITION.TOP_RIGHT
+          })
+        }
       })
     }
+ 
 
   return (
     <div className="dsmovie-form-container">
@@ -79,6 +104,7 @@ function FormCard( {movieId} : Props) {
             <button type="submit" className="btn btn-primary dsmovie-btn">
               Salvar
             </button>
+            <ToastContainer />
           </div>
         </form>
         <Link to="/">
