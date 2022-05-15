@@ -8,6 +8,7 @@ import { BASE_URL } from "utils/requests";
 function Listing() {
   // cria uma variavel e uma função para alterar o valor dela com o useState
   const [pageNumber, setPageNumber] = useState(0);
+
   const [page, setPage] = useState<MoviePage>({
     content: [],
     last: true,
@@ -30,9 +31,14 @@ function Listing() {
       });
   }, [pageNumber]);
 
+  // Função que está sendo passado para o pagination usar para mudar de pagina
+  const handlePageChange = (newPageNumber : number) => {
+    setPageNumber(newPageNumber)
+  }
+
   return (
     <>
-      <Pagination />
+      <Pagination page={page}  onChange={handlePageChange} />
 
       <div className="container">
         <div className="row">
