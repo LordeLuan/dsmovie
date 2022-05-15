@@ -23,7 +23,7 @@ function Listing() {
   // Recebe 2 args, uma funç~çao para exec e uma lista de objetos para observar de forma assincrona.
   useEffect(() => {
     axios
-      .get(`${BASE_URL}/movies?size=${page.size}&page=${pageNumber}&sort=title`)
+      .get(`${BASE_URL}/movies?size=${page.size}&page=${pageNumber}`)
       .then((response) => {
         const data = response.data as MoviePage;
         setPage(data);
