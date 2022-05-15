@@ -6,9 +6,10 @@ import { MoviePage } from "types/movie";
 import { BASE_URL } from "utils/requests";
 
 function Listing() {
-  // cria uma variavel e uma função para alterar o valor dela com o useState
+  // cria uma variavel e uma função para alterar o valor dela com o useState - Acompanha ciclo de vida da página
   const [pageNumber, setPageNumber] = useState(0);
 
+  // useState do tipo MoviePage
   const [page, setPage] = useState<MoviePage>({
     content: [],
     last: true,
@@ -21,7 +22,7 @@ function Listing() {
     empty: true,
   });
 
-  // Recebe 2 args, uma funç~çao para exec e uma lista de objetos para observar de forma assincrona.
+  // Recebe 2 args, uma funçao para exec e uma lista de objetos para observar de forma assincrona.
   useEffect(() => {
     axios
       .get(`${BASE_URL}/movies?size=${page.size}&page=${pageNumber}`)
@@ -38,6 +39,7 @@ function Listing() {
 
   return (
     <>
+    {/* Passa o obj page e a função de alterar página */}
       <Pagination page={page}  onChange={handlePageChange} />
 
       <div className="container">
